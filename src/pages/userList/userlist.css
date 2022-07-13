@@ -1,5 +1,7 @@
 .userList {
     flex: 4;
+    margin-left: 100px;
+    overflow-x: scroll;
   }
   
   .userListUser {
@@ -22,10 +24,43 @@
       background-color: #3bb077;
       color: white;
       cursor: pointer;
-      margin-right: 20px;
+
   }
   
   .userListDelete{
       color: red;
       cursor: pointer;
+  }
+
+  .Top{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+  }
+
+  .Bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+  }
+
+  #customers td,th {
+    border: 1px solid #ddd;
+    padding: 20px;
+    /* background-color: red; */
+  }
+
+  img{
+    border-radius:50%;
+    height:60px;
+    width:70px;
+    object-fit: fit;
+  }
+  @media screen and (max-width:1120px) {
+    .userList{
+      margin-left: 0px;
+    }
+    
   }

@@ -1,33 +1,79 @@
+import { useState } from "react";
 import "./newuser.css";
-
+import { userRequest } from "../../requestMethods";
 export default function NewUser() {
+  const [userData, setUserData] = useState();
+
+  const changeHandler = (e) => {
+    setUserData((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    const res = await userRequest.post("auth/register", userData);
+    console.log(res);
+  };
+
   return (
     <div className="newUser">
       <h1 className="newUserTitle">New User</h1>
-      <form className="newUserForm">
+      <form className="newUserForm" onSubmit={submitHandler}>
         <div className="newUserItem">
           <label>Username</label>
-          <input type="text" placeholder="john" />
+          <input
+            onChange={changeHandler}
+            name="username"
+            type="text"
+            placeholder="john"
+          />
         </div>
         <div className="newUserItem">
           <label>Full Name</label>
-          <input type="text" placeholder="John Smith" />
+          <input
+            onChange={changeHandler}
+            type="text"
+            placeholder="John Smith"
+          />
         </div>
         <div className="newUserItem">
           <label>Email</label>
-          <input type="email" placeholder="john@gmail.com" />
+          <input
+            onChange={changeHandler}
+            name="email"
+            type="email"
+            placeholder="john@gmail.com"
+          />
         </div>
         <div className="newUserItem">
           <label>Password</label>
-          <input type="password" placeholder="password" />
+          <input
+            onChange={changeHandler}
+            name="password"
+            type="password"
+            placeholder="password"
+          />
         </div>
         <div className="newUserItem">
           <label>Phone</label>
-          <input type="text" placeholder="+1 123 456 78" />
+          <input
+            onChange={changeHandler}
+            type="text"
+            name="phone"
+            placeholder="+1 123 456 78"
+          />
         </div>
         <div className="newUserItem">
           <label>Address</label>
-          <input type="text" placeholder="New York | USA" />
+          <input
+            onChange={changeHandler}
+            type="text"
+            name="address"
+            placeholder="New York | USA"
+          />
         </div>
         <div className="newUserItem">
           <label>Gender</label>
@@ -42,7 +88,12 @@ export default function NewUser() {
         </div>
         <div className="newUserItem">
           <label>Active</label>
-          <select className="newUserSelect" name="active" id="active">
+          <select
+            className="newUserSelect"
+            name="isActive"
+            onChange={changeHandler}
+            id="active"
+          >
             <option value="yes">Yes</option>
             <option value="no">No</option>
           </select>

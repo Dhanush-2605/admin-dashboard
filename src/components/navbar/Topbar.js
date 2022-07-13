@@ -1,7 +1,14 @@
 import React from "react";
 import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 import "./topbar.css";
+import { logoutUser } from "../../redux/userRedux";
+import { useDispatch } from "react-redux";
+
 const Topbar = () => {
+  const dispatch=useDispatch();
+  const handleClick=()=>{
+    dispatch(logoutUser());
+  }
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -25,6 +32,9 @@ const Topbar = () => {
             alt=""
             className="topAvatar"
           />
+          <div>
+            <button onClick={handleClick}>Logout</button>
+          </div>
         </div>
       </div>
     </div>

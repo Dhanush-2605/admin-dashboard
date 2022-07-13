@@ -5,69 +5,71 @@ import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../../dummydata";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
+import { userRequest } from "../../requestMethods";
 
 const UserList = () => {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const res = await userRequest.get("users");
+      setData(res.data);
+      console.log(res.data);
+    };
+    getData();
+  }, []);
+  console.log(data);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  const handleDelete = async (id) => {
+    // setData(data.filter((item) => item.id !== id));
+    console.log("deleted");
+    try {
+      const res = await userRequest.delete(`users/${id}`);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
-  const columns = [
-    { field: "id", headerName: "ID", width: 90 },
-    {
-      field: "user",
-      headerName: "User",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
-          </div>
-        );
-      },
-    },
-    { field: "email", headerName: "Email", width: 200 },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 120,
-    },
-    {
-      field: "transaction",
-      headerName: "Transaction Volume",
-      width: 160,
-    },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={"/user/"+params.row.id}>
-              <button className="userListEdit">Edit</button>
-            </Link>
-            <DeleteOutline
-              className="userListDelete"
-              onClick={() => handleDelete(params.row.id)}
-            />
-          </>
-        );
-      },
-    },
-  ];
 
   return (
     <div className="userList">
-      <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
+      <table id="users">
+        <tr>
+          <th>ID</th>
+          <th>PHOTO</th>
+          <th>NAME</th>
+          <th>EMAIL</th>
+          <th>EDIT</th>
+          <th>DELETE</th>
+        </tr>
+        {data.map((data) => {
+          return (
+            <tr>
+              <th>{data._id}</th>
+              <th>
+                <img
+                  src="https://thumbs.dreamstime.com/b/happy-person-portrait-smiling-woman-tanned-skin-curly-hair-happy-person-portrait-smiling-young-friendly-woman-197501184.jpg"
+                  alt="profile"
+                />
+              </th>
+              <th>{data.username}</th>
+              <th>{data.email}</th>
+              <th>
+                <Link to={"/user/" + data._id}>
+                  <button className="userListEdit">Edit</button>
+                </Link>
+              </th>
+              <th>
+                {" "}
+                <DeleteOutline
+                  className="userListDelete"
+                  onClick={() => handleDelete(data._id)}
+                />
+              </th>
+            </tr>
+          );
+        })}
+      </table>
     </div>
   );
 };
