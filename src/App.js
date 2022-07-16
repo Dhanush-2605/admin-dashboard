@@ -19,10 +19,18 @@ import Product from "./pages/product/Product";
 import NewProduct from "./pages/newproduct/NewProduct";
 import Login from "./pages/login/Login";
 function App() {
-  const admin = JSON.parse(
-    JSON.parse(localStorage.getItem("persist:root")).user
-  ).currentUser.isAdmin;
-  // const admin=true;
+  // const admin = JSON.parse(
+  //   JSON.parse(localStorage.getItem("persist:root")).user
+  // ).currentUser.isAdmin;
+
+  
+
+  const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
+  const currentUser = user && JSON.parse(user).currentUser;
+  console.log(currentUser);
+  // const TOKEN = currentUser?.accessToken;
+
+  const admin=true;
   // const admin=true;
   console.log(admin);
   return (

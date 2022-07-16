@@ -42,27 +42,29 @@ export const getProducts = async (dispatch) => {
 export const deleteProducts = async (id, dispatch) => {
   dispatch(deleteProductStart());
   try {
-    // const res = await userRequest.delete(`/products/${id}`);
+    const res = await userRequest.delete(`/products/${id}`);
     dispatch(deleteProductSuccess(id));
   } catch (err) {
     dispatch(deleteProductFail());
   }
 };
 
-export const updateProducts = async (id,product,dispatch) => {
+export const updateProduct = async (id,product,dispatch) => {
   dispatch(updateProductStart());
+  console.log(product);
   try {
-    // const res = await userRequest.delete(`/products/${id}`);
+    const res = await userRequest.put(`/products/${id}`,product);
+    console.log(res);
     dispatch(updateProductSuccess({id,product}));
   } catch (err) {
     dispatch(updateProductFail());
   }
 };
 
-export const addProducts = async (product, dispatch) => {
+export const addProduct = async (product, dispatch) => {
   dispatch(addProductStart());
   try {
-    const res = await userRequest.get("/products",product);
+    const res = await userRequest.post("/products",product);
     dispatch(addProductSuccess(res.data));
   } catch (err) {
     dispatch(addProductFail());

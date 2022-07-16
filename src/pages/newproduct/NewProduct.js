@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./newproduct.css";
-import { addProducts } from "../../redux/apiCalls";
+import { addProduct } from "../../redux/apiCalls";
 import {
   getStorage,
   ref,
@@ -10,8 +10,7 @@ import {
 import app from "../../firebase";
 // import { addProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
-import { userRequest } from "../../requestMethods";
-import { useParams } from "react-router-dom";
+
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
@@ -28,22 +27,18 @@ export default function NewProduct() {
     setCat(e.target.value.split(","));
   };
 
-  const handleClick = (e) => {
+  const handleClick = async(e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file.name;
     const storage = getStorage(app);
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // Register three observers:
-    // 1. 'state_changed' observer, called any time the state changes
-    // 2. Error observer, called on failure
-    // 3. Completion observer, called on successful completion
-    uploadTask.on(
+
+     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+       
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
@@ -58,28 +53,27 @@ export default function NewProduct() {
         }
       },
       (error) => {
-        // Handle unsuccessful uploads
+
       },
       () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
-          addProducts(product, dispatch);
+          // console.log(product);
+          addProduct(product, dispatch);
+    
         });
       }
     );
-  };
-  const formSubmit = async (event) => {
-    event.preventDefault();
-    const res = await userRequest.post("products", inputs);
-    console.log(res);
+
   };
 
+
+  console.log(file);
   return (
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
-      <form className="addProductForm" onSubmit={formSubmit}>
+      <form className="addProductForm" >
         <div className="addProductItem">
           <label>Image</label>
           <input
@@ -87,6 +81,7 @@ export default function NewProduct() {
             id="file"
             name="img"
             onChange={(e) => setFile(e.target.files[0])}
+            // onChange={handleChange}
           />
         </div>
         <div className="addProductItem">
@@ -132,7 +127,7 @@ export default function NewProduct() {
             <option value="false">No</option>
           </select>
         </div>
-        <button className="addProductButton">Create</button>
+        <button className="addProductButton" onClick={handleClick}>Create</button>
       </form>
     </div>
   );
