@@ -11,13 +11,13 @@ import { useEffect } from "react";
 import { userRequest } from "../../requestMethods";
 import { async } from "@firebase/util";
 import { updateProduct } from "../../redux/apiCalls";
-import {useDispatch} from "react-redux"
+import { useDispatch } from "react-redux";
 
 export default function Product() {
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
-  const [updatedProduct,setUpdatedProduct]=useState({});
-  const dispatch=useDispatch();
+  const [updatedProduct, setUpdatedProduct] = useState({});
+  const dispatch = useDispatch();
 
   const [pStats, setPStats] = useState([]);
   const product = useSelector((state) =>
@@ -42,18 +42,18 @@ export default function Product() {
     []
   );
 
-  const changeHandler=(e)=>{
-    setUpdatedProduct((prev)=>{
+  const changeHandler = (e) => {
+    setUpdatedProduct((prev) => {
       return {
         ...prev,
-        [e.target.name]:e.target.value
-      }
-    })
-  }
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await userRequest.get("orders/income?" + productId);
+        const res = await userRequest.get("orders/income?productId" + productId);
         console.log(res);
         const list = res.data.sort((a, b) => {
           return a._id - b._id;
@@ -74,7 +74,7 @@ export default function Product() {
 
   const formSubmit = (event) => {
     event.preventDefault();
-    updateProduct(productId,updatedProduct,dispatch);
+    updateProduct(productId, updatedProduct, dispatch);
     // const res = await userRequest.put(`products/${productId}`);
     console.log("updated");
   };
@@ -117,13 +117,28 @@ export default function Product() {
         <form className="productForm">
           <div className="productFormLeft">
             <label>Product Name</label>
-            <input name="title" onChange={changeHandler} type="text" placeholder={product.title} />
+            <input
+              name="title"
+              onChange={changeHandler}
+              type="text"
+              placeholder={product.title}
+            />
             <label>Product Description</label>
-            <input name="desc"  onChange={changeHandler} type="text" placeholder={product.desc} />
+            <input
+              name="desc"
+              onChange={changeHandler}
+              type="text"
+              placeholder={product.desc}
+            />
             <label>Product Price</label>
-            <input name="price"  onChange={changeHandler} type="text" placeholder={product.price} />
+            <input
+              name="price"
+              onChange={changeHandler}
+              type="text"
+              placeholder={product.price}
+            />
             <label>In Stock</label>
-            <select name="inStock"  onChange={changeHandler} id="idStock">
+            <select name="inStock" onChange={changeHandler} id="idStock">
               <option value="yes">Yes</option>
               <option value="no">No</option>
             </select>
@@ -136,7 +151,9 @@ export default function Product() {
               </label>
               <input type="file" id="file" style={{ display: "none" }} />
             </div>
-            <button className="productButton" onClick={formSubmit}>Update</button>
+            <button className="productButton" onClick={formSubmit}>
+              Update
+            </button>
           </div>
         </form>
       </div>

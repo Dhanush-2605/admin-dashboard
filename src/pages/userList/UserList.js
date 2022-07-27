@@ -48,8 +48,10 @@ const UserList = () => {
               <th>{data._id}</th>
               <th>
                 <img
-                  src="https://thumbs.dreamstime.com/b/happy-person-portrait-smiling-woman-tanned-skin-curly-hair-happy-person-portrait-smiling-young-friendly-woman-197501184.jpg"
+                 
+                  src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
                   alt="profile"
+                  style={{ height: "25px", width: "25px" }}
                 />
               </th>
               <th>{data.username}</th>

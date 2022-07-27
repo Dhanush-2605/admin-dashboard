@@ -26,7 +26,7 @@ const WidgetSm = () => {
             <img
               src={
                 user.img ||
-                "https://crowd-literature.eu/wp-content/uploads/2015/01/no-avatar.gif"
+                "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
               }
               alt=""
               className="widgetSmImg"
@@ -47,3 +47,5 @@ const WidgetSm = () => {
 };
 
 export default WidgetSm;
+
+

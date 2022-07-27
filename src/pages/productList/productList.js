@@ -1,29 +1,31 @@
+
+
 import "./productlist.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import {useDispatch,useSelector } from "react-redux";
-
-import { productRows} from "../../dummydata";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { deleteProducts, getProducts } from "../../redux/apiCalls";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/apiCalls";
+
+import { deleteProducts } from "../../redux/apiCalls";
+
+// import { deleteProduct, getProducts } from "../../redux/apiCalls";
 
 export default function ProductList() {
-  const [data, setData] = useState(productRows);
-  const dispatch=useDispatch();
-  const products=useSelector((state)=>state.product.products);
-            
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.products);
 
-  useEffect(()=>{
+  useEffect(() => {
     getProducts(dispatch);
+  }, [dispatch]);
 
-  },[dispatch]);
   const handleDelete = (id) => {
-    deleteProducts(id,dispatch);
+    deleteProducts(id, dispatch);
   };
 
   const columns = [
-    { field: "_id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 220 },
     {
       field: "product",
       headerName: "Product",
@@ -38,7 +40,6 @@ export default function ProductList() {
       },
     },
     { field: "inStock", headerName: "Stock", width: 200 },
-
     {
       field: "price",
       headerName: "Price",
@@ -65,13 +66,13 @@ export default function ProductList() {
   ];
 
   return (
-    <div className="productList">
+    <div className="productList" style={{ height: "100%" }}>
       <DataGrid
         rows={products}
         disableSelectionOnClick
         columns={columns}
-        getRowId={(row)=>row._id}
-        pageSize={8}
+        getRowId={(row) => row._id}
+        // pageSize={8}
         checkboxSelection
       />
     </div>

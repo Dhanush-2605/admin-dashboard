@@ -18,19 +18,26 @@ import NewUser from "./pages/newuser/NewUser";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newproduct/NewProduct";
 import Login from "./pages/login/Login";
+import Order from "./pages/order/order";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 function App() {
   // const admin = JSON.parse(
   //   JSON.parse(localStorage.getItem("persist:root")).user
   // ).currentUser.isAdmin;
-
-  
+  const history = useHistory();
+  const loginUser = useSelector((state) => state.user.currentUser);
+  let admin = false;
+  if (loginUser != null) {
+    admin = loginUser.isAdmin;
+  }
+  console.log(admin);
 
   const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
   const currentUser = user && JSON.parse(user).currentUser;
   console.log(currentUser);
   // const TOKEN = currentUser?.accessToken;
 
-  const admin=true;
   // const admin=true;
   console.log(admin);
   return (
@@ -39,7 +46,7 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        {admin && (
+        {admin ? (
           <>
             <Topbar />
             <div className="container">
@@ -65,11 +72,13 @@ function App() {
               <Route path="/newproduct">
                 <NewProduct />
               </Route>
-              {/* <Route path="/newproduct">
-                <NewProduct />
-              </Route> */}
+               <Route path="/order">
+                <Order/>
+              </Route> 
             </div>
           </>
+        ) : (
+          <h1>login</h1>
         )}
       </Switch>
     </Router>

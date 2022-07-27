@@ -3,12 +3,15 @@ import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 import "./topbar.css";
 import { logoutUser } from "../../redux/userRedux";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom"
 
 const Topbar = () => {
-  const dispatch=useDispatch();
-  const handleClick=()=>{
+  const dispatch = useDispatch();
+  const history=useHistory();
+  const handleClick = () => {
     dispatch(logoutUser());
-  }
+    history.push("/login");
+  };
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -32,7 +35,7 @@ const Topbar = () => {
             alt=""
             className="topAvatar"
           />
-          <div>
+          <div className="logout">
             <button onClick={handleClick}>Logout</button>
           </div>
         </div>
