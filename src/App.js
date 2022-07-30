@@ -18,13 +18,15 @@ import NewUser from "./pages/newuser/NewUser";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newproduct/NewProduct";
 import Login from "./pages/login/Login";
-import Order from "./pages/order/order";
+import Orders from "./pages/orders/orders";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Order from "./pages/order/order";
 function App() {
   // const admin = JSON.parse(
   //   JSON.parse(localStorage.getItem("persist:root")).user
   // ).currentUser.isAdmin;
+  console.log(process.env.REACT_APP_FIREBASE_KEY);
   const history = useHistory();
   const loginUser = useSelector((state) => state.user.currentUser);
   let admin = false;
@@ -72,7 +74,10 @@ function App() {
               <Route path="/newproduct">
                 <NewProduct />
               </Route>
-               <Route path="/order">
+               <Route path="/orders">
+                <Orders/>
+              </Route> 
+              <Route path="/order/:id">
                 <Order/>
               </Route> 
             </div>
