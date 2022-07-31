@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { DeleteOutline } from "@material-ui/icons";
 // import dualring from ".../Assests/dualring.js";
 // import dualring from ".../"
+import dualring from "../Assests/dualring.svg";
 import "./orders.css";
 
 const Orders = () => {
@@ -77,7 +78,7 @@ const Orders = () => {
           </div>
         </>
       ) : (
-        <h1>loading</h1>
+       <img src={dualring} alt="loading" />
       )}
     </>
   );

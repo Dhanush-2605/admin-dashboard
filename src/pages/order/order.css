@@ -8,13 +8,68 @@ h2 {
   font-weight: 500;
 }
 .user {
-  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 50%;
 
   margin: auto;
 }
+.data {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
 .payment {
-  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  /* width: 50%; */
+  height: 30%;
   margin: 30px 0px;
+}
+.order {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 20%;
+}
+
+button {
+  padding: 20px 30px;
+  border: none;
+  font-size: 24px;
+  border-radius: 10px;
+}
+.Delivered {
+  background-color: #e5faf2;
+  color: #3bb077;
+}
+.Canceled {
+  background-color: #fff0f1;
+  color: #d95087;
+}
+.Pending {
+  background-color: #ebf1fe;
+  color: #2a7ade;
+}
+.Shipping {
+  background-color: #ffebbf;
+  color: #de932a;
+}
+.Success {
+  background-color: #e5faf2;
+  color: #3bb077;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 24px;
 }
 .wrapper {
   display: flex;
@@ -29,6 +84,7 @@ h2 {
 }
 .left {
   width: 50%;
+  height: 80vh;
   padding: 50px;
   display: flex;
   align-items: center;
@@ -39,16 +95,29 @@ h2 {
 }
 .right {
   width: 30%;
-  height: 100px;
+  /* height: 100px; */
   padding: 50px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
+
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-  /* height: 100%; */
-  /* background-color: rebeccapurple; */
 }
+.process {
+  padding: 10px 20px;
+  margin: 30px 0px;
+}
+.right button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: darkblue;
+  font-size: 20px;
+  color: white;
+}
+
 .rightContent {
 }
 

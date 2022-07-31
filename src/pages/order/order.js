@@ -21,7 +21,7 @@ const Order = () => {
       }
     };
     getOrder();
-  }, [id]);
+  }, [id, orderStatus]);
   const changeOrderStatus = async () => {
     try {
       const res = await userRequest.put(`/orders/${id}`, orderStatus);
@@ -31,21 +31,27 @@ const Order = () => {
     }
     console.log(orderStatus);
   };
+  const Button = ({ type }) => {
+    return <button className={type}>{type}</button>;
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="left">
           <div className="user">
-            <h1>Shipping Details</h1>
             <div>
+              <h1>Shipping Details</h1>
+            </div>
+            <div className="data">
               <h2>Name</h2>
               <span>{orderData.name}</span>
             </div>
-            <div>
+            <div className="data">
               <h2>Address</h2>
               <span>{orderData.address}</span>
             </div>
-            <div>
+            <div className="data">
               <h2>Phone</h2>
               <span>{orderData.number}</span>
             </div>
@@ -55,15 +61,23 @@ const Order = () => {
               <h1>Payment Details</h1>
             </div>
             <div>
-              Total Amount<span>{orderData.amount}</span>
+              <h2>
+                Total Amount : <span>$ {orderData.amount}</span>
+              </h2>
             </div>
             <div>
-              Status <span>{orderData.status}</span>
+              <button type="text" className="Success">
+                PAID
+              </button>
             </div>
           </div>
           <div className="order">
-            <h1>Order Status</h1>
-            <p>{orderData.status}</p>
+            <div>
+              <h1>Order Status</h1>
+            </div>
+            <div>
+              <Button type={orderData.status}>{orderData.status}</Button>
+            </div>
           </div>
         </div>
         <div className="right">
@@ -72,13 +86,21 @@ const Order = () => {
           </div>
           <div>
             <select
+              className="process"
               name="pending"
               onChange={(event) => {
                 setOrderStatus({ status: event.target.value });
               }}
             >
-              <option value="Shipping">Shipping</option>
-              <option value="Delivered">Delivered</option>
+              <option value="none" selected disabled hidden>
+                Process
+              </option>
+              <option className="process" value="Shipping">
+                Shipping
+              </option>
+              <option className="process" value="Delivered">
+                Delivered
+              </option>
             </select>
           </div>
           <div>
