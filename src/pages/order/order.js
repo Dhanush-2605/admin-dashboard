@@ -6,10 +6,10 @@ import { useLocation } from "react-router-dom";
 import "./order.css";
 const Order = () => {
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  console.log(id);
+  const id = location.pathname.split("/")[2];  
   const [orderData, setOrderData] = useState({});
   const [orderStatus, setOrderStatus] = useState({});
+  
   useEffect(() => {
     const getOrder = async () => {
       try {

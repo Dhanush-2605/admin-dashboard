@@ -41,26 +41,34 @@ h2 {
   height: 20%;
 }
 
-button {
+.button {
   padding: 20px 30px;
   border: none;
-  font-size: 24px;
+  /* font-size: 24px; */
   border-radius: 10px;
 }
 .Delivered {
   background-color: #e5faf2;
+  padding: 20px 30px;
+    font-size: 24px;
   color: #3bb077;
 }
 .Canceled {
   background-color: #fff0f1;
+  padding: 20px 30px;
+  font-size: 24px;
   color: #d95087;
 }
 .Pending {
   background-color: #ebf1fe;
+  padding: 20px 30px;
+  font-size: 24px;
   color: #2a7ade;
 }
 .Shipping {
   background-color: #ffebbf;
+  padding: 20px 30px;
+  font-size: 24px;
   color: #de932a;
 }
 .Success {
@@ -114,7 +122,7 @@ button {
   border-radius: 10px;
   cursor: pointer;
   background-color: darkblue;
-  font-size: 20px;
+  /* font-size: 20px; */
   color: white;
 }
 
