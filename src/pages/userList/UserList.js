@@ -1,7 +1,6 @@
 import "./userlist.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-// import { userRows } from "../../dummyData";
 import { userRows } from "../../dummydata";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -48,8 +47,11 @@ const UserList = () => {
               <th>{data._id}</th>
               <th>
                 <img
-                 
-                  src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+                  // src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+                  src={
+                    "https://cdn-icons-png.flaticon.com/512/1077/1077012.png" ||
+                    data.img
+                  }
                   alt="profile"
                   style={{ height: "25px", width: "25px" }}
                 />

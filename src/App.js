@@ -45,9 +45,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
         {admin ? (
           <>
             <Topbar />
@@ -74,16 +74,16 @@ function App() {
               <Route path="/newproduct">
                 <NewProduct />
               </Route>
-               <Route path="/orders">
-                <Orders/>
-              </Route> 
+              <Route path="/orders">
+                <Orders />
+              </Route>
               <Route path="/order/:id">
-                <Order/>
-              </Route> 
+                <Order />
+              </Route>
             </div>
           </>
         ) : (
-          <h1>login</h1>
+          <Redirect path="/login"></Redirect>
         )}
       </Switch>
     </Router>

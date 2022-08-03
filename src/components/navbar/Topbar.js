@@ -3,11 +3,14 @@ import { NotificationsNone, Language, Settings } from "@material-ui/icons";
 import "./topbar.css";
 import { logoutUser } from "../../redux/userRedux";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Topbar = () => {
   const dispatch = useDispatch();
-  const history=useHistory();
+  const user = useSelector((state) => state.user);
+  console.log(user.currentUser.img);
+  const history = useHistory();
   const handleClick = () => {
     dispatch(logoutUser());
     history.push("/login");
@@ -19,22 +22,9 @@ const Topbar = () => {
           <span className="logo">Dhanushadmin</span>
         </div>
         <div className="topRight">
-          <div className="topbarIconContainer">
-            <NotificationsNone />
-            <span className="topIconBadge">2</span>
-          </div>
-          <div className="topbarIconContainer">
-            <Language />
-            <span className="topIconBadge">2</span>
-          </div>
-          <div className="topbarIconContainer">
-            <Settings />
-          </div>
-          <img
-            src="https://images.pexels.com/photos/1526814/pexels-photo-1526814.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
-            className="topAvatar"
-          />
+        
+
+          <img src={user.currentUser.img} alt="" className="topAvatar" />
           <div className="logout">
             <button onClick={handleClick}>Logout</button>
           </div>
