@@ -35,7 +35,10 @@ const Order = () => {
     return <button className={type}>{type}</button>;
   };
 
+  console.log(orderData);
   return (
+    <>
+    {orderData ? 
     <div className="container">
       <div className="wrapper">
         <div className="left">
@@ -92,7 +95,7 @@ const Order = () => {
                 setOrderStatus({ status: event.target.value });
               }}
             >
-              <option value="none" selected disabled hidden>
+              <option value="defaull" disabled selected>
                 Process
               </option>
               <option className="process" value="Shipping">
@@ -109,6 +112,8 @@ const Order = () => {
         </div>
       </div>
     </div>
+    :<h1>lol</h1>}
+    </>
   );
 };
 
