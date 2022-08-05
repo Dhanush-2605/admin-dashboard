@@ -2,19 +2,20 @@ import React from "react";
 import "./sidebar.css";
 import { Link } from "react-router-dom";
 import {
-    LineStyle,
-    Timeline,
-    TrendingUp,
-    PermIdentity,
-    Storefront,
-    AttachMoney,
-    BarChart,
-    MailOutline,
-    DynamicFeed,
-    ChatBubbleOutline,
-    WorkOutline,
-    Report,
-  } from "@material-ui/icons";
+  LineStyle,
+  Timeline,
+  TrendingUp,
+  PermIdentity,
+  Storefront,
+  AttachMoney,
+  BarChart,
+  MailOutline,
+  DynamicFeed,
+  ChatBubbleOutline,
+  WorkOutline,
+  Report,
+} from "@material-ui/icons";
+import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 const Sidebar = () => {
   return (
     <div className="sidebar">
@@ -53,14 +54,12 @@ const Sidebar = () => {
                 Products
               </li>
             </Link>
-            <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
-            </li>
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
-            </li>
+            <Link to="/orders" className="link">
+              <li className="sidebarListItem">
+                <ShoppingCartRoundedIcon className="sidebarIcon" />
+                Orders
+              </li>
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">
