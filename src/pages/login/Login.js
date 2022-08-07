@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { login } from "../../redux/apiCalls";
+import { loginSuccess } from "../../redux/userRedux";
 const Login = () => {
   const [username, setUsername] = useState("");
 
@@ -14,21 +15,22 @@ const Login = () => {
   const navigate = useHistory();
   const dispatch = useDispatch();
 
-  const handleClick = (e) => {
+  const handleClick =  (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
-    setNavigate((prev) => {
-      return !prev;
-    });
+    // setNavigate((prev) => {
+    //   return !prev;
+    // });
+    // console.log(loginSuccess)
     // history.push("/");
   };
-  useEffect(() => {
-    if (Navigate) history.push("/");
-  }, [Navigate, history]);
+  // useEffect(() => {
+  //   if (Navigate) history.push("/");
+  // }, [Navigate, history]);
 
   return (
     <div className="container">
-      <div className="wrapper">
+      <div className="Wrapper">
         <form>
           <div className="header">
             <h2>Login</h2>

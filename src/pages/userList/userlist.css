@@ -1,11 +1,11 @@
 .userList {
   flex: 4;
-  margin-left: 100px;
+  /* margin-left: 100px; */
   /* background-color: red; */
   /* overflow-x: scroll; */
 }
 
-.userListUser {
+.userListItem {
   display: flex;
   align-items: center;
 }

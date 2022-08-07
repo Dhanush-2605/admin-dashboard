@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { userRequest } from "../../requestMethods";
 import { Link } from "react-router-dom";
 import { DeleteOutline } from "@material-ui/icons";
+import { DataGrid } from "@material-ui/data-grid";
 // import dualring from ".../Assests/dualring.js";
 // import dualring from ".../"
 import dualring from "../Assests/dualring.svg";
@@ -26,61 +27,58 @@ const Orders = () => {
     getAllorders();
   }, []);
 
-  const handleDelete = async () => {
+  const handleDelete = async (id) => {
     try {
-      // const res=await userRequest.delete(`orders/${}`);
+      const res = await userRequest.delete(`orders/${id}`);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const columns = [
+    { field: "_id", headerName: "Order ID", width: 220 },
+    {
+      field: "name",
+      headerName: "User Name",
+      width: 200,
+    },
+    { field: "status", headerName: "Status", width: 200 },
+    {
+      field: "amount",
+      headerName: "Amount",
+      width: 160,
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={"/order/" + params.row._id}>
+              <button className="productListEdit">Edit</button>
+            </Link>
+            <DeleteOutline
+              className="productListDelete"
+              onClick={() => handleDelete(params.row._id)}
+            />
+          </>
+        );
+      },
+    },
+  ];
+
   console.log(allOrders.length);
   return (
-    <>
-      {allOrders.length !== 0 ? (
-        <>
-          <div className="orderList">
-            <div className="userList">
-              <table id="users">
-                <tr>
-                  <th>ORDER ID</th>
-                  <th>USER NAME</th>
-                  <th>STATUS</th>
-                  <th>PRICE</th>
-
-                  <th>EDIT</th>
-                  <th>DELETE</th>
-                </tr>
-                {allOrders.map((data) => {
-                  return (
-                    <tr>
-                      <th>{data._id}</th>
-                      <th>{data.name}</th>
-
-                      <th>{data.status}</th>
-                      <th>$ {data.amount}</th>
-                      <th>
-                        <Link to={"/order/" + data._id}>
-                          <button className="userListEdit">Edit</button>
-                        </Link>
-                      </th>
-                      <th>
-                        {" "}
-                        <DeleteOutline
-                          className="userListDelete"
-                          onClick={() => handleDelete(data._id)}
-                        />
-                      </th>
-                    </tr>
-                  );
-                })}
-              </table>
-            </div>
-          </div>
-        </>
-      ) : (
-       <img src={dualring} alt="loading" />
-      )}
-    </>
+    <div className="productList" style={{ height: "100%" }}>
+      <DataGrid
+        rows={allOrders}
+        disableSelectionOnClick
+        columns={columns}
+        getRowId={(row) => row._id}
+        checkboxSelection
+      />
+    </div>
   );
 };
 

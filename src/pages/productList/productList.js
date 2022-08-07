@@ -1,5 +1,3 @@
-
-
 import "./productlist.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
@@ -23,7 +21,7 @@ export default function ProductList() {
   const handleDelete = (id) => {
     deleteProducts(id, dispatch);
   };
-
+  console.log(products);
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
     {

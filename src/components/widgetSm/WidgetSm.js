@@ -22,7 +22,7 @@ const WidgetSm = () => {
       <span className="widgetSmTitle">New Join Members</span>
       <ul className="widgetSmList">
         {users.map((user) => (
-          <li className="widgetSmListItem">
+          <li className="widgetSmListItem" key={user._id}>
             <img
               src={
                 user.img ||

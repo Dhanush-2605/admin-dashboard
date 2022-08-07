@@ -23,10 +23,6 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Order from "./pages/order/order";
 function App() {
-  // const admin = JSON.parse(
-  //   JSON.parse(localStorage.getItem("persist:root")).user
-  // ).currentUser.isAdmin;
-  console.log(process.env.REACT_APP_FIREBASE_KEY);
   const history = useHistory();
   const loginUser = useSelector((state) => state.user.currentUser);
   let admin = false;
@@ -38,16 +34,13 @@ function App() {
   const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
   const currentUser = user && JSON.parse(user).currentUser;
   console.log(currentUser);
-  // const TOKEN = currentUser?.accessToken;
 
-  // const admin=true;
-  console.log(admin);
   return (
     <Router>
       <Switch>
-      <Route path="/login">
-        <Login />
-      </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
         {admin ? (
           <>
             <Topbar />
