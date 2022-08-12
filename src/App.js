@@ -33,14 +33,18 @@ function App() {
 
   const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
   const currentUser = user && JSON.parse(user).currentUser;
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <Router>
       <Switch>
-        <Route path="/login">
-          <Login />
+      <Route path="/login">
+        <Login />
+      </Route>
+        {/* <Route exact path="/" >
+           {!user ?<Redirect to="/login" />:<Home/>}
         </Route>
+         */}
         {admin ? (
           <>
             <Topbar />

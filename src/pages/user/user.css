@@ -127,7 +127,9 @@
 
 .userUpdateRight {
   display: flex;
-  flex-direction: column-reverse;
+  align-items: center;
+  flex-direction: column;
+ 
   justify-content: space-between;
 }
 

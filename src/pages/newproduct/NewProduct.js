@@ -8,9 +8,8 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../../firebase";
-// import { addProduct } from "../../redux/apiCalls";
-import { useDispatch } from "react-redux";
 
+import { useDispatch } from "react-redux";
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
@@ -26,19 +25,18 @@ export default function NewProduct() {
   const handleCat = (e) => {
     setCat(e.target.value.split(","));
   };
+  console.log(cat);
 
-  const handleClick = async(e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file.name;
     const storage = getStorage(app);
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-
-     uploadTask.on(
+    uploadTask.on(
       "state_changed",
       (snapshot) => {
-       
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
@@ -52,28 +50,22 @@ export default function NewProduct() {
           default:
         }
       },
-      (error) => {
-
-      },
+      (error) => {},
       () => {
-      
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
-          // console.log(product);
+          console.log(product);
           addProduct(product, dispatch);
-    
         });
       }
     );
-
   };
-
 
   console.log(file);
   return (
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
-      <form className="addProductForm" >
+      <form className="addProductForm">
         <div className="addProductItem">
           <label>Image</label>
           <input
@@ -93,12 +85,22 @@ export default function NewProduct() {
             onChange={handleChange}
           />
         </div>
+
         <div className="addProductItem">
           <label>Description</label>
           <input
             name="desc"
             type="text"
             placeholder="description..."
+            onChange={handleChange}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Color</label>
+          <input
+            name="color"
+            type="text"
+            placeholder="color"
             onChange={handleChange}
           />
         </div>
@@ -127,7 +129,9 @@ export default function NewProduct() {
             <option value="false">No</option>
           </select>
         </div>
-        <button className="addProductButton" onClick={handleClick}>Create</button>
+        <button className="addProductButton" onClick={handleClick}>
+          Create
+        </button>
       </form>
     </div>
   );

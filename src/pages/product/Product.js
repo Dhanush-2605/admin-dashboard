@@ -23,6 +23,7 @@ export default function Product() {
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
   );
+  
 
   const MONTHS = useMemo(
     () => [
@@ -50,28 +51,28 @@ export default function Product() {
       };
     });
   };
-  useEffect(() => {
-    const getStats = async () => {
-      try {
-        const res = await userRequest.get("orders/income?productId" + productId);
-        console.log(res);
-        const list = res.data.sort((a, b) => {
-          return a._id - b._id;
-        });
-        list.map((item) => {
-          return setPStats((prev) => [
-            ...prev,
-            { name: MONTHS[item._id - 1], Sales: item.total },
-          ]);
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getStats();
-  });
-  console.log(pStats);
-
+  // useEffect(() => {
+  //   const getStats = async () => {
+  //     try {
+  //       const res = await userRequest.get("orders/income?pid=" + productId);
+  //       console.log(res);
+  //       const list = res.data.sort((a, b) => {
+  //         return a._id - b._id;
+  //       });
+  //       list.map((item) => {
+  //         return setPStats((prev) => [
+  //           ...prev,
+  //           { name: MONTHS[item._id - 1], Sales: item.total },
+  //         ]);
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getStats();
+  // });
+  // console.log(pStats);
+const data=[{name:"july",Sales:220},{name:"aug",Sales:130}];
   const formSubmit = (event) => {
     event.preventDefault();
     updateProduct(productId, updatedProduct, dispatch);
@@ -89,7 +90,7 @@ export default function Product() {
       </div>
       <div className="productTop">
         <div className="productTopLeft">
-          <Chart data={pStats} dataKey="Sales" title="Sales Performance" />
+          <Chart data={data} dataKey="Sales" title="Sales Performance" />
         </div>
         <div className="productTopRight">
           <div className="productInfoTop">

@@ -46,7 +46,7 @@ h2 {
   background-color: #e5faf2;
   border-radius: 10px;
   border: none;
-  padding: 15px 30px;
+  padding: 10px 30px;
   font-size: 24px;
   color: #3bb077;
 }
@@ -54,7 +54,7 @@ h2 {
   background-color: #fff0f1;
   border-radius: 10px;
   border: none;
-  padding: 15px 30px;
+  padding: 10px 30px;
   font-size: 24px;
   color: #d95087;
 }
@@ -62,7 +62,7 @@ h2 {
   background-color: #ebf1fe;
   border-radius: 10px;
   border: none;
-  padding: 15px 30px;
+  padding: 10px 30px;
   font-size: 24px;
   color: #2a7ade;
 }
@@ -70,7 +70,7 @@ h2 {
   background-color: #ffebbf;
   border-radius: 10px;
   border: none;
-  padding: 15px 30px;
+  padding: 10px 30px;
   font-size: 24px;
   color: #de932a;
 }
@@ -78,7 +78,7 @@ h2 {
   background-color: #e5faf2;
   color: #3bb077;
   border: none;
-  padding: 15px 30px;
+  padding: 10px 40px;
   border-radius: 10px;
   font-size: 24px;
 }

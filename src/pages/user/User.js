@@ -6,6 +6,13 @@ import {
   PhoneAndroid,
   Publish,
 } from "@material-ui/icons";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import app from "../../firebase";
 import { Link } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
 import "./user.css";
@@ -134,9 +141,25 @@ const User = () => {
               </div>
             </div>
             <div className="userUpdateRight">
-              <button className="userUpdateButton" onClick={handleClick}>
-                Update
-              </button>
+              <div className="userUpdateUpload">
+                <img
+                  className="userUpdateImg"
+                  src={
+                    "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" ||
+                    currUser.img
+                  }
+                  alt=""
+                />
+                <label htmlFor="file">
+                  <Publish className="userUpdateIcon" />
+                </label>
+                <input type="file" id="file" style={{ display: "none" }} />
+              </div>
+              <div>
+                <button className="userUpdateButton" onClick={handleClick}>
+                  Update
+                </button>
+              </div>
             </div>
           </form>
         </div>
