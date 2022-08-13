@@ -12,6 +12,7 @@ import { userRequest } from "../../requestMethods";
 import { async } from "@firebase/util";
 import { updateProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Product() {
   const location = useLocation();
@@ -23,7 +24,7 @@ export default function Product() {
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
   );
-  
+  console.log(product);
 
   const MONTHS = useMemo(
     () => [
@@ -109,7 +110,7 @@ const data=[{name:"july",Sales:220},{name:"aug",Sales:130}];
 
             <div className="productInfoItem">
               <span className="productInfoKey">in stock:</span>
-              <span className="productInfoValue">{product.inStock}</span>
+              <span className="productInfoValue">{product.inStock ? "Yes":"No"}</span>
             </div>
           </div>
         </div>
@@ -156,8 +157,10 @@ const data=[{name:"july",Sales:220},{name:"aug",Sales:130}];
               Update
             </button>
           </div>
+          <h1>{product.inStock}</h1>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }

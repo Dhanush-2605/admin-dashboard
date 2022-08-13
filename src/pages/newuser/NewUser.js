@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./newuser.css";
-import { userRequest } from "../../requestMethods";
+
+import { addUser } from "../../redux/apiCalls";
 export default function NewUser() {
   const [userData, setUserData] = useState();
 
@@ -14,8 +15,7 @@ export default function NewUser() {
   };
   const submitHandler = async (event) => {
     event.preventDefault();
-    const res = await userRequest.post("auth/register", userData);
-    console.log(res);
+    addUser(userData);
   };
 
   return (

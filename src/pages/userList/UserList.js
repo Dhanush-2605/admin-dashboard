@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { userRequest } from "../../requestMethods";
+import { deleteUser } from "../../redux/apiCalls";
 
 const UserList = () => {
   const [data, setData] = useState([]);
@@ -20,14 +21,7 @@ const UserList = () => {
   console.log(data);
 
   const handleDelete = async (id) => {
-   
-    console.log("deleted");
-    try {
-      const res = await userRequest.delete(`users/${id}`);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
+    deleteUser(id);
   };
 
   const columns = [
@@ -39,7 +33,14 @@ const UserList = () => {
       renderCell: (params) => {
         return (
           <div className="userListItem">
-            <img className="userListImg" src={params.row.img ||  "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"} alt="" />
+            <img
+              className="userListImg"
+              src={
+                params.row.img ||
+                "https://cdn-icons-png.flaticon.com/512/1077/1077012.png"
+              }
+              alt=""
+            />
             {params.row.username}
           </div>
         );

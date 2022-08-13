@@ -13,16 +13,24 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../../firebase";
-import { Link } from "react-router-dom";
 import { userRequest } from "../../requestMethods";
+import { useState,useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./user.css";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { async } from "@firebase/util";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+
+import { updateUser } from "../../redux/apiCalls";
 const User = () => {
   const id = useParams();
-  const [currUser, setCurrUser] = useState({});
+   const [currUser,setCurrUser]=useState({});
   const [data, setData] = useState({});
+  // const currentUser = useSelector((state) => state.user);
+  // const currUser = currentUser.currentUser;
+
 
   const handleChange = (event) => {
     setData((prev) => {
@@ -32,20 +40,19 @@ const User = () => {
       };
     });
   };
+
   useEffect(() => {
     const getData = async () => {
       const res = await userRequest.get(`users/find/${id.userId}`);
       setCurrUser(res.data);
-      console.log(res.data);
+      console.log(res);
+   
     };
     getData();
   }, [id]);
   const handleClick = async (event) => {
     event.preventDefault();
-
-    const res = await userRequest.put(`users/${id.userId}`, data);
-    console.log(res);
-    console.log(data);
+    updateUser(id.userId, data);
   };
 
   return (
@@ -66,7 +73,6 @@ const User = () => {
             />
             <div className="userShowTopTitle">
               <span className="userShowUsername">{currUser.username}</span>
-              {/* <span className="userShowUserTitle">Software Engineer</span> */}
             </div>
           </div>
           <div className="userShowBottom">
@@ -145,7 +151,7 @@ const User = () => {
                 <img
                   className="userUpdateImg"
                   src={
-                    "https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" ||
+                    "https://cdn-icons-png.flaticon.com/512/1077/1077012.png" ||
                     currUser.img
                   }
                   alt=""
@@ -164,6 +170,7 @@ const User = () => {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
