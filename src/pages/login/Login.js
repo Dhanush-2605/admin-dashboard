@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./login.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { login } from "../../redux/apiCalls";
 import { loginSuccess } from "../../redux/userRedux";
+import { Link } from "react-router-dom";
 const Login = () => {
+  const user = useSelector((state) => state.user.currentUser);
   const [username, setUsername] = useState("");
 
   const [password, setPassword] = useState("");
@@ -15,7 +17,7 @@ const Login = () => {
   const navigate = useHistory();
   const dispatch = useDispatch();
 
-  const handleClick =  (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
     // setNavigate((prev) => {
@@ -55,6 +57,13 @@ const Login = () => {
             <button onClick={handleClick}>Login</button>
           </div>
         </form>
+        {user && (
+          <div className="start">
+            <Link to="/">
+              <button>Home</button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

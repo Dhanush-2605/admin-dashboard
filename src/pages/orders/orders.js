@@ -6,12 +6,19 @@ import { userRequest } from "../../requestMethods";
 import { Link } from "react-router-dom";
 import { DeleteOutline } from "@material-ui/icons";
 import { DataGrid } from "@material-ui/data-grid";
+import { getOrders, deleteOrder } from "../../redux/orderRedux";
+
+import { useDispatch, useSelector } from "react-redux";
+
 // import dualring from ".../Assests/dualring.js";
 // import dualring from ".../"
 import dualring from "../Assests/dualring.svg";
 import "./orders.css";
 
 const Orders = () => {
+  const order = useSelector((state) => state.order.orders);
+  const dispatch = useDispatch();
+  console.log(order);
   const [allOrders, setAllOrders] = useState([]);
 
   useEffect(() => {
@@ -19,17 +26,19 @@ const Orders = () => {
       try {
         const res = await userRequest.get("/orders");
         console.log(res);
+        dispatch(getOrders(res.data));
         setAllOrders(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getAllorders();
-  }, []);
+  }, [dispatch]);
 
   const handleDelete = async (id) => {
     try {
       const res = await userRequest.delete(`orders/${id}`);
+      dispatch(deleteOrder(id));
     } catch (err) {
       console.log(err);
     }
@@ -72,7 +81,7 @@ const Orders = () => {
   return (
     <div className="productList" style={{ height: "100%" }}>
       <DataGrid
-        rows={allOrders}
+        rows={order}
         disableSelectionOnClick
         columns={columns}
         getRowId={(row) => row._id}

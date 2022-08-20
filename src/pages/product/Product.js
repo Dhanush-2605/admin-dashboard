@@ -52,27 +52,28 @@ export default function Product() {
       };
     });
   };
-  // useEffect(() => {
-  //   const getStats = async () => {
-  //     try {
-  //       const res = await userRequest.get("orders/income?pid=" + productId);
-  //       console.log(res);
-  //       const list = res.data.sort((a, b) => {
-  //         return a._id - b._id;
-  //       });
-  //       list.map((item) => {
-  //         return setPStats((prev) => [
-  //           ...prev,
-  //           { name: MONTHS[item._id - 1], Sales: item.total },
-  //         ]);
-  //       });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getStats();
-  // });
-  // console.log(pStats);
+  useEffect(() => {
+    const getStats = async () => {
+      try {
+        const res = await userRequest.get("orders/income?pid=" + productId);
+        console.log("server");
+        console.log(res.data);
+        const list = res.data.sort((a, b) => {
+          return a._id - b._id;
+        });
+        list.map((item) => {
+          return setPStats((prev) => [
+            ...prev,
+            { name: MONTHS[item._id - 1], Sales: item.total },
+          ]);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getStats();
+  });
+  console.log(pStats);
 const data=[{name:"july",Sales:220},{name:"aug",Sales:130}];
   const formSubmit = (event) => {
     event.preventDefault();

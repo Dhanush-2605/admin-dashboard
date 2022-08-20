@@ -21,7 +21,7 @@ const Home = () => {
       "May",
       "Jun",
       "Jul",
-      "Agu",
+      "Aug",
       "Sep",
       "Oct",
       "Nov",
