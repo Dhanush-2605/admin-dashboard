@@ -9,11 +9,13 @@ import { DataGrid } from "@material-ui/data-grid";
 import { getOrders, deleteOrder } from "../../redux/orderRedux";
 
 import { useDispatch, useSelector } from "react-redux";
-
+// import { notifyFailure, notifySuccess } from "../../alert/alert";
+import { notifySuccess } from "../../alert/alert";
 // import dualring from ".../Assests/dualring.js";
 // import dualring from ".../"
 import dualring from "../Assests/dualring.svg";
 import "./orders.css";
+
 
 const Orders = () => {
   const order = useSelector((state) => state.order.orders);
@@ -34,15 +36,17 @@ const Orders = () => {
     };
     getAllorders();
   }, [dispatch]);
-
+notifySuccess("lol");
   const handleDelete = async (id) => {
     try {
       const res = await userRequest.delete(`orders/${id}`);
+      res && notifySuccess("Successfully Deleted!");
       dispatch(deleteOrder(id));
     } catch (err) {
       console.log(err);
     }
   };
+
 
   const columns = [
     { field: "_id", headerName: "Order ID", width: 220 },

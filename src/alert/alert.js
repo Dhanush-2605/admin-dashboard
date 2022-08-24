@@ -3,4 +3,4 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 export const notifySuccess=(data)=>toast.success(data);
-export const notifyFailure=(data)=>toast.success(data);
+export const notifyFailure=(data)=>toast.failure(data);

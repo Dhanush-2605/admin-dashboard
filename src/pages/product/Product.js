@@ -12,7 +12,7 @@ import { userRequest } from "../../requestMethods";
 import { async } from "@firebase/util";
 import { updateProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Product() {
   const location = useLocation();
@@ -24,7 +24,6 @@ export default function Product() {
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
   );
-  console.log("kkmko");
 
   const MONTHS = useMemo(
     () => [
@@ -72,9 +71,12 @@ export default function Product() {
       }
     };
     getStats();
-  });
+  }, [productId, MONTHS]);
   console.log(pStats);
-const data=[{name:"july",Sales:220},{name:"aug",Sales:130}];
+  const data = [
+    { name: "july", Sales: 220 },
+    { name: "aug", Sales: 130 },
+  ];
   const formSubmit = (event) => {
     event.preventDefault();
     updateProduct(productId, updatedProduct, dispatch);
@@ -92,7 +94,7 @@ const data=[{name:"july",Sales:220},{name:"aug",Sales:130}];
       </div>
       <div className="productTop">
         <div className="productTopLeft">
-          <Chart data={data} dataKey="Sales" title="Sales Performance" />
+          <Chart data={pStats} dataKey="Sales" title="Sales Performance" />
         </div>
         <div className="productTopRight">
           <div className="productInfoTop">
@@ -111,7 +113,9 @@ const data=[{name:"july",Sales:220},{name:"aug",Sales:130}];
 
             <div className="productInfoItem">
               <span className="productInfoKey">in stock:</span>
-              <span className="productInfoValue">{product.inStock ? "Yes":"No"}</span>
+              <span className="productInfoValue">
+                {product.inStock ? "Yes" : "No"}
+              </span>
             </div>
           </div>
         </div>
