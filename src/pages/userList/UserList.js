@@ -7,17 +7,21 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { userRequest } from "../../requestMethods";
 import { deleteUser } from "../../redux/apiCalls";
+import { AddUser } from "../../redux/usersRedux";
+import { useDispatch } from "react-redux";
 
 const UserList = () => {
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     const getData = async () => {
       const res = await userRequest.get("users");
       setData(res.data);
+      dispatch(AddUser(res.data));
       console.log(res.data);
     };
     getData();
-  }, []);
+  }, [dispatch]);
   console.log(data);
 
   const handleDelete = async (id) => {

@@ -24,7 +24,7 @@ export default function Product() {
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
   );
-
+console.log(product);
   const MONTHS = useMemo(
     () => [
       "Jan",
@@ -54,7 +54,7 @@ export default function Product() {
   useEffect(() => {
     const getStats = async () => {
       try {
-        const res = await userRequest.get("orders/income?pid=" + productId);
+        const res = await userRequest.get("stats/" + productId);
         console.log("server");
         console.log(res.data);
         const list = res.data.sort((a, b) => {
@@ -73,10 +73,7 @@ export default function Product() {
     getStats();
   }, [productId, MONTHS]);
   console.log(pStats);
-  const data = [
-    { name: "july", Sales: 220 },
-    { name: "aug", Sales: 130 },
-  ];
+
   const formSubmit = (event) => {
     event.preventDefault();
     updateProduct(productId, updatedProduct, dispatch);

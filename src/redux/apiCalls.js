@@ -4,6 +4,9 @@ import axios from "axios";
 import { publicRequest, userRequest } from "../requestMethods";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { UpdateUser } from "./usersRedux";
+// import
 import {
   getProductStart,
   getProductSuccess,
@@ -59,8 +62,9 @@ export const updateProduct = async (id, product, dispatch) => {
   console.log(product);
   try {
     const res = await userRequest.put(`/products/${id}`, product);
-    console.log(res);
-    dispatch(updateProductSuccess(id, product,dispatch));
+    let data=res.data;
+    console.log(data);
+    dispatch(updateProductSuccess(id, data, dispatch));
     res && notifySuccess("Sucessfully Updated");
   } catch (err) {
     dispatch(updateProductFail());
@@ -83,6 +87,7 @@ export const addProduct = async (product, dispatch) => {
 export const addUser = async (user) => {
   try {
     const res = await userRequest.post("auth/register", user);
+
     res && notifySuccess("Successfully User Created");
   } catch (err) {
     notifyFailure("User Creation Failed");
@@ -91,6 +96,9 @@ export const addUser = async (user) => {
 export const updateUser = async (id, user, dispatch) => {
   try {
     const res = await userRequest.put(`users/${id}`, user);
+    console.log(res.data);
+    let data=res.data;
+    dispatch(UpdateUser(id, data,dispatch));
     res && notifySuccess("Successfully User Updated");
   } catch (err) {
     notifyFailure("User Updation Failed!!");
@@ -105,5 +113,3 @@ export const deleteUser = async (id) => {
     notifyFailure("User Deletion Failed");
   }
 };
-
-

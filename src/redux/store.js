@@ -1,10 +1,9 @@
-
-
-
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import productReducer from "./productRedux";
 import userReducer from "./userRedux";
 import orderReducer from "./orderRedux";
+import usersReducer from "./usersRedux";
+import thunk from "redux-thunk";
 import {
   persistStore,
   persistReducer,
@@ -23,13 +22,19 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({ user: userReducer,product:productReducer,order:orderReducer});
+const rootReducer = combineReducers({
+  user: userReducer,
+  product: productReducer,
+  order: orderReducer,
+  users: usersReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => 
+  // applyMiddleware(thunk)
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

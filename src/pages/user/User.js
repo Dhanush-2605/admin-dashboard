@@ -21,14 +21,20 @@ import { useParams } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { updateUser } from "../../redux/apiCalls";
+
 const User = () => {
   const id = useParams();
    const [currUser,setCurrUser]=useState({});
   const [data, setData] = useState({});
-  // const currentUser = useSelector((state) => state.user);
+  const dispatch=useDispatch();
+  console.log(id.userId);
+  const user = useSelector((state) =>
+    state.users.users.find((user) => user._id === id.userId)
+  );
+  console.log(user);
   // const currUser = currentUser.currentUser;
 
 
@@ -45,6 +51,7 @@ const User = () => {
     const getData = async () => {
       const res = await userRequest.get(`users/find/${id.userId}`);
       setCurrUser(res.data);
+     
       console.log(res);
    
     };
@@ -52,7 +59,8 @@ const User = () => {
   }, [id]);
   const handleClick = async (event) => {
     event.preventDefault();
-    updateUser(id.userId, data);
+    updateUser(id.userId, data,dispatch);
+  
   };
 
   return (
@@ -72,14 +80,14 @@ const User = () => {
               className="userShowImg"
             />
             <div className="userShowTopTitle">
-              <span className="userShowUsername">{currUser.username}</span>
+              <span className="userShowUsername">{user.username}</span>
             </div>
           </div>
           <div className="userShowBottom">
             <span className="userShowTitle">Account Details</span>
             <div className="userShowInfo">
               <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">{currUser.username}</span>
+              <span className="userShowInfoTitle">{user.username}</span>
             </div>
             <div className="userShowInfo">
               <CalendarToday className="userShowIcon" />
@@ -88,15 +96,15 @@ const User = () => {
             <span className="userShowTitle">Contact Details</span>
             <div className="userShowInfo">
               <PhoneAndroid className="userShowIcon" />
-              <span className="userShowInfoTitle">{currUser.phone}</span>
+              <span className="userShowInfoTitle">{user.number}</span>
             </div>
             <div className="userShowInfo">
               <MailOutline className="userShowIcon" />
-              <span className="userShowInfoTitle">{currUser.email}</span>
+              <span className="userShowInfoTitle">{user.email}</span>
             </div>
             <div className="userShowInfo">
               <LocationSearching className="userShowIcon" />
-              <span className="userShowInfoTitle">{currUser.address}</span>
+              <span className="userShowInfoTitle">{user.address}</span>
             </div>
           </div>
         </div>
@@ -108,7 +116,7 @@ const User = () => {
                 <label>Username</label>
                 <input
                   type="text"
-                  placeholder={currUser.username}
+                  placeholder={user.username}
                   className="userUpdateInput"
                   name="username"
                   onChange={handleChange}
@@ -119,7 +127,7 @@ const User = () => {
                 <label>Email</label>
                 <input
                   type="text"
-                  placeholder={currUser.email}
+                  placeholder={user.email}
                   className="userUpdateInput"
                   name="email"
                   onChange={handleChange}
@@ -129,7 +137,7 @@ const User = () => {
                 <label>Phone</label>
                 <input
                   type="text"
-                  placeholder={currUser.phone}
+                  placeholder={user.number}
                   className="userUpdateInput"
                   name="phone"
                   onChange={handleChange}
@@ -139,7 +147,7 @@ const User = () => {
                 <label>Address</label>
                 <input
                   type="text"
-                  placeholder={currUser.address}
+                  placeholder={user.address}
                   className="userUpdateInput"
                   name="address"
                   onChange={handleChange}
@@ -152,7 +160,7 @@ const User = () => {
                   className="userUpdateImg"
                   src={
                     "https://cdn-icons-png.flaticon.com/512/1077/1077012.png" ||
-                    currUser.img
+                    user.img
                   }
                   alt=""
                 />
@@ -172,6 +180,7 @@ const User = () => {
       </div>
       <ToastContainer />
     </div>
+   
   );
 };
 
